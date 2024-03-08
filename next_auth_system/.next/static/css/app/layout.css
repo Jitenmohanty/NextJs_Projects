@@ -843,6 +843,27 @@ video {
 .opacity-\[1\] {
   opacity: 1;
 }
+.opacity-5 {
+  opacity: 0.05;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-10 {
+  opacity: 0.1;
+}
+.opacity-\[\] {
+  opacity: ;
+}
+.opacity-\[0\] {
+  opacity: 0;
+}
+.opacity-\[\.7\] {
+  opacity: .7;
+}
+.opacity-\[\.4\] {
+  opacity: .4;
+}
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1012,6 +1033,11 @@ body {
 .hover\:bg-red-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
 }
 
 .group:hover .group-hover\:translate-x-1 {
