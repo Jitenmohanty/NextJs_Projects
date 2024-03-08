@@ -28,4 +28,3 @@ pids
 *.njsproj
 *.sln
 *.swp
-next_auth_system/.env
