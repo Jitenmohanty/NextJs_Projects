@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     console.log("Before update:", user);
 
-    user.isVerified = true;
+    user.isVerfied = true;
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
 
