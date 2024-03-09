@@ -1,7 +1,11 @@
 {
-  "/login/page": "app/login/page.js",
   "/profile/page": "app/profile/page.js",
-  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/verifyemail/page": "app/verifyemail/page.js",
+  "/api/users/verifyemail/route": "app/api/users/verifyemail/route.js",
+  "/api/users/login/route": "app/api/users/login/route.js",
   "/api/users/userDetails/route": "app/api/users/userDetails/route.js",
-  "/profile/[id]/page": "app/profile/[id]/page.js"
+  "/profile/[id]/page": "app/profile/[id]/page.js",
+  "/api/users/logout/route": "app/api/users/logout/route.js"
 }

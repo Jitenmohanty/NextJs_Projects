@@ -1,8 +1,10 @@
 # Dependencies
 node_modules
-
+.next/
+\.next
+next_auth_system\.next
 # Production build
-/.next
+.next/
 
 # Environment variables
 .env

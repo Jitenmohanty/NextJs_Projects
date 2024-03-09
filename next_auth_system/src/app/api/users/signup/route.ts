@@ -1,4 +1,5 @@
 import { connect } from "@/dbConfig/DbConect";
+import { sendEmails } from "@/helper/nodeMailer";
 import User from "@/model/userModel.js";
 import bcryptjs from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
@@ -31,6 +32,9 @@ export async function POST(request: NextRequest) {
     }).save();
 
     console.log(newUser);
+
+    //send veification Email
+    await sendEmails({email , emailType:"VERIFY",userId:newUser._id})
 
     return NextResponse.json({
       message: "User created successfully",
