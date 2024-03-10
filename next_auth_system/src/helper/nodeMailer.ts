@@ -27,41 +27,41 @@ export const sendEmails = async ({ email, emailType, userId }: any) => {
         pass: process.env.MAIL_PASSWORD, // pass
       },
     });
-    const mailOptionsForVerifyemail = {
+    const mailOptions = {
       from: "jitenmohantyaz@gmail.com",
       to: email,
       subject:
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",
       html: `<p>Click <a href="${
         process.env.DOMAIN
-      }/verifyemail?token=${hashedToken}">here</a> to ${
+      }/${emailType === "VERIFY"?"verifyemail":"resetpassword"}?token=${hashedToken}">here</a> to ${
         emailType === "VERIFY" ? "verify your email" : "reset your password"
       }
         or copy and paste the link below in your browser. <br> ${
           process.env.DOMAIN
-        }/verifyemail?token=${hashedToken}
+        }/${emailType === "VERIFY"?"verifyemail":"resetpassword"}?token=${hashedToken}
         </p>`,
     };
-    const mailOptionsForforgotpassword = {
-      from: "jitenmohantyaz@gmail.com",
-      to: email,
-      subject:
-        emailType === "VERIFY" ? "Verify your email" : "Reset your password",
-      html: `<p>Click <a href="${
-        process.env.DOMAIN
-      }/resetpassword?token=${hashedToken}">here</a> to ${
-        emailType === "VERIFY" ? "verify your email" : "reset your password"
-      }
-        or copy and paste the link below in your browser. <br> ${
-          process.env.DOMAIN
-        }/resetpassword?token=${hashedToken}
-        </p>`,
-    };
+    // const mailOptionsForforgotpassword = {
+    //   from: "jitenmohantyaz@gmail.com",
+    //   to: email,
+    //   subject:
+    //     emailType === "VERIFY" ? "Verify your email" : "Reset your password",
+    //   html: `<p>Click <a href="${
+    //     process.env.DOMAIN
+    //   }/resetpassword?token=${hashedToken}">here</a> to ${
+    //     emailType === "VERIFY" ? "verify your email" : "reset your password"
+    //   }
+    //     or copy and paste the link below in your browser. <br> ${
+    //       process.env.DOMAIN
+    //     }/resetpassword?token=${hashedToken}
+    //     </p>`,
+    // };
 
-    const mailOptions =
-      emailType === mailOptionsForVerifyemail
-        ? mailOptionsForVerifyemail
-        : mailOptionsForforgotpassword;
+    // const mailOptions =
+    //   emailType === mailOptionsForVerifyemail
+    //     ? mailOptionsForVerifyemail
+    //     : mailOptionsForforgotpassword;
 
     const mailresponse = await transport.sendMail(mailOptions);
     return mailresponse;

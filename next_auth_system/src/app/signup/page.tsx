@@ -36,9 +36,9 @@ const page = () => {
    }
 
   return (
-    <div className='flex h-screen justify-center items-center'>
-    <div className="inner flex flex-col justify-center items-center gap-4 border-2 border-red-300 py-8 px-6 rounded-lg">
-        <h1 className='uppercase text-2xl font-bold text-gray-400'>Signup here</h1>
+    <div className='flex py-8 justify-center items-center'>
+    <div className="inner flex flex-col justify-center items-center gap-2 border-2 border-red-300 py-4 px-6 rounded-lg">
+        <h1 className='uppercase text-2xl font-bold text-gray-400 mb-3'>Signup here</h1>
         <label htmlFor=""  className=' text-gray-300 text-xl'>username</label>
         <input className='outline-none w-64 text-black p-2 rounded-md' value={name} onChange={(e)=>setName(e.target.value)} type="text"  placeholder='username..'/>
         <label htmlFor=""  className=' text-gray-300 text-xl'>Email</label>

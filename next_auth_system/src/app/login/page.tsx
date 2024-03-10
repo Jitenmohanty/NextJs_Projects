@@ -33,7 +33,7 @@ export default function page() {
   }
 
   return (
-    <div className="flex h-screen justify-center items-center">
+    <div className="flex py-14 justify-center items-center">
       <div className="inner flex flex-col justify-center items-center gap-4 border-2 border-red-300 py-8 px-6 rounded-lg">
         <h1 className="uppercase text-2xl font-bold text-gray-400">
           Login Here
