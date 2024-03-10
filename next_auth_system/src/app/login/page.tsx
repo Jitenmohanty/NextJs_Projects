@@ -26,12 +26,11 @@ export default function page() {
     } finally {
       setLoading(false);
     }
+  };
+
+  if (loading) {
+    <div className="bg-gray-500 h-screen text-4xl text-white">Loading</div>;
   }
-
-
-  if(loading){
-    <div className='bg-gray-500 h-screen text-4xl text-white'>Loading</div>
-   }
 
   return (
     <div className="flex h-screen justify-center items-center">
@@ -68,7 +67,7 @@ export default function page() {
           Login
         </button>
         <div className="flex  gap-2">
-          <Link className="underline text-blue-300" href={"/signup"}>
+          <Link href={"/forgotpassword"} className="underline text-blue-300">
             Forgot password?{" "}
           </Link>
           {"|"}

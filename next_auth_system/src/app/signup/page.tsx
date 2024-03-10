@@ -47,9 +47,7 @@ const page = () => {
         <input className='outline-none p-2 w-64 text-black rounded-md ' value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder='password..'  />
         <button className={`${(name && email) && password? "opacity-[1]":"opacity-[.6]"} p-2 bg-blue-500 rounded-lg px-4 mt-4 font-bold`} onClick={handleSubmit}>Signup</button>
        <div className='flex  gap-2'>
-       <Link className="underline text-blue-300" href={"#"}>Forgot password? </Link>
-            {"|"}
-       <Link className='underline  text-blue-300' href={"/login"}>Create Here?</Link>
+       <Link className='underline  text-blue-300' href={"/login"}>Already have account?</Link>
        </div>
     </div>
 </div>
