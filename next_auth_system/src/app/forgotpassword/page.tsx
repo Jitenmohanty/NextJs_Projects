@@ -3,19 +3,24 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
   const onsubmit = async () => {
     try {
-      if (email.length>0) {
-        console.log(email)
-        const response = await axios.post("/api/users/forgotpassword", {
+      if (email.length > 0) {
+        await axios.post("/api/users/forgotpassword", {
           email,
         });
+        setSent(true);
+        toast.success("Email sent!");
       }
     } catch (error: any) {
+      toast.error("Something Went wrong!");
+      setSent(false);
       console.log(error.message);
     }
   };
@@ -39,9 +44,9 @@ const page = () => {
 
         <button
           onClick={onsubmit}
-          className={
-            "p-2 bg-green-500  rounded-lg px-4 mt-4 font-bold cursor-pointer"
-          }
+          className={`p-2 bg-green-500  rounded-lg px-4 mt-4 font-bold cursor-pointer ${
+            sent ? "opacity-[.6]":"opacity-[1]"
+          } `}
         >
           Sent
         </button>

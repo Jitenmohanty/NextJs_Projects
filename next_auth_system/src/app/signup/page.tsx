@@ -3,6 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react'
+import { toast } from 'react-toastify';
 
 const page = () => {
     const router = useRouter()
@@ -20,12 +21,11 @@ const page = () => {
         console.log(user)
         try {
           setLoading(true);
-          const response = await axios.post("/api/users/signup",user);
-          console.log("user Signup!",response.data,"hfh")
+          await axios.post("/api/users/signup",user);
+          toast.success("User created sucessfully!")
           router.push("/login");
         } catch (error:any) {
-          console.log("Something went wrong",error.message)
-
+          toast.error("Something Went wrong!")
         }finally{
           setLoading(false)
         }

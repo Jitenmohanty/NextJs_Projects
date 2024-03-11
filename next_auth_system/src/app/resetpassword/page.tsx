@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const [verified, setVerified] = useState(false);
@@ -20,9 +21,11 @@ const page = () => {
   const onTokenVerify = async () => {
     try {
       await axios.post("/api/users/verifyforgitpasswordtoken", { token });
+      toast.success("Password updated sucessfully!")
       setVerified(true);
     } catch (error: any) {
       setError(true);
+      toast.error("Something Went wrong!")
       console.log(error);
     }
   };

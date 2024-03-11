@@ -3,12 +3,15 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navabar from "@/Components/Navabar";
 import Footer from "@/Components/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Authentications System in Next js",
-  description: "It is a pure authentication system in NextJs build from scratch...You can checkout NextAuth react Tailwind css",
+  description:
+    "It is a pure authentication system in NextJs build from scratch...You can checkout NextAuth react Tailwind css",
 };
 
 export default function RootLayout({
@@ -19,10 +22,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navabar/>
+        <Navabar />
         {children}
-        <Footer/>
-        </body>
+        <Footer />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </body>
     </html>
   );
 }

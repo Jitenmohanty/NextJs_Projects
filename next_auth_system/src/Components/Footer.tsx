@@ -1,5 +1,4 @@
 import Link from "next/link";
-import icon from "react-icons";
 import React from "react";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { TbBrandGmail } from "react-icons/tb";

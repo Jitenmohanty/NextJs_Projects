@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "react-toastify";
 
 export default function page() {
   const router = useRouter();
@@ -18,11 +19,12 @@ export default function page() {
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/login", user);
-      console.log(response.data);
-      router.push("/profile");
+      await axios.post("/api/users/login", user);
+      toast.success("Login sucessfull!");
+      router.push("/");
     } catch (error: any) {
       console.log("Login failed", error.message);
+      toast.error("Invalid credentials");
     } finally {
       setLoading(false);
     }

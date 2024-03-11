@@ -2,6 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function page() {
   const [token, setToken] = useState("");
@@ -12,10 +13,11 @@ function page() {
     try {
         console.log(token)
       await axios.post("/api/users/verifyemail", { token });
-        console.log(token)
+      toast.success("User verified sucessfully!")
       setVerified(true);
     } catch (error: any) {
       setError(true);
+      toast.error("Something Went wrong!")
       console.log(error.response.data);
     }
   };
