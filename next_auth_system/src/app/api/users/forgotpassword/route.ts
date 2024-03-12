@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     await sendEmails({ email, emailType: "RESET", userId: user._id });
-    console.log("reset password link sent to your email");
+    // console.log("reset password link sent to your email");
 
     return NextResponse.json({
         message:"reset password link sent to your email",

@@ -8,8 +8,9 @@ import { toast } from "react-toastify";
 const page = () => {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [loader, setLoader] = useState(false);
 
-  const onsubmit = async () => {
+  const onsubmit:any = async () => {
     try {
       if (email.length > 0) {
         await axios.post("/api/users/forgotpassword", {
@@ -24,6 +25,10 @@ const page = () => {
       console.log(error.message);
     }
   };
+
+  if(loader){
+    
+  }
 
   return (
     <div className="flex h-screen justify-center items-center">

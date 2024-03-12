@@ -41,7 +41,7 @@ export default function page() {
           Login Here
         </h1>
         <label htmlFor="" className=" text-gray-300 text-xl">
-          username
+          email
         </label>
         <input
           className="outline-none w-64 text-black p-2 rounded-md"

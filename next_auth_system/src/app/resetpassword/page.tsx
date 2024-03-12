@@ -21,11 +21,11 @@ const page = () => {
   const onTokenVerify = async () => {
     try {
       await axios.post("/api/users/verifyforgitpasswordtoken", { token });
-      toast.success("Password updated sucessfully!")
+      toast.success("User verify sucessfully!");
       setVerified(true);
     } catch (error: any) {
       setError(true);
-      toast.error("Something Went wrong!")
+      toast.error("Something Went wrong!");
       console.log(error);
     }
   };
@@ -35,11 +35,13 @@ const page = () => {
         token,
         password,
       });
-      if (response.status === 200) console.log("Password set sucessfully!");
-      router.push("/login")
+      if (response.status === 200) {
+        toast.success("Password updated sucessfull!");
+      }
+      router.push("/login");
     } catch (error: any) {
       setError(true);
-      console.log(error.response.data);
+      toast.error("Something Went wrong!");
     }
   };
 
@@ -56,23 +58,13 @@ const page = () => {
           Reset Password
         </h1>
 
-        {
-            error && <p className="text-red-500">Error on verify Email!</p>
-        }
-
-        {/* <p className="text-sm text-gray-600">*First click verify to verify email</p>
-        <button
-          className="
-    p-2 bg-blue-500 rounded-lg px-4 mt-4 font-bold cursor-pointer"
-          onClick={onTokenVerify}
-        >
-          {verified ? "Verified" : "Verify"}
-        </button> */}
+        {error && <p className="text-red-500">Error on verify Email!</p>}
+       
         {verified && (
           <div className="flex flex-col gap-4 justify-center items-center">
             {" "}
             <label htmlFor="" className=" text-gray-300 text-xl">
-             New password:
+              New password:
             </label>
             <input
               className="outline-none p-2 w-64 text-black rounded-md "
