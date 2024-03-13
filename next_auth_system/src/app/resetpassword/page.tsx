@@ -59,7 +59,7 @@ const page = () => {
         </h1>
 
         {error && <p className="text-red-500">Error on verify Email!</p>}
-       
+
         {verified && (
           <div className="flex flex-col gap-4 justify-center items-center">
             {" "}

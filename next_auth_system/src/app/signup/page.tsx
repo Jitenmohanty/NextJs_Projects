@@ -6,11 +6,10 @@ import React from 'react'
 import { toast } from 'react-toastify';
 
 const page = () => {
-    const router = useRouter()
+  const router = useRouter()
     const [name,setName] = React.useState("");
     const [email,setEmail] = React.useState("");
     const [password,setPassword] = React.useState("");
-    const [loading, setLoading] = React.useState(false)
 
     const handleSubmit = async()=>{
         const user = {
@@ -20,20 +19,15 @@ const page = () => {
         }
         console.log(user)
         try {
-          setLoading(true);
           await axios.post("/api/users/signup",user);
           toast.success("User created sucessfully!")
           router.push("/login");
         } catch (error:any) {
           toast.error("Something Went wrong!")
         }finally{
-          setLoading(false)
         }
     }
 
-   if(loading){
-    <div className='bg-gray-500 h-screen text-4xl text-white'>Loading</div>
-   }
 
   return (
     <div className='flex py-8 justify-center items-center'>

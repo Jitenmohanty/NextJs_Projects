@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 
+
 export default function ProfilePage() {
   const [data, setData] = useState("nothing");
   const [user, setUser] = useState<any>({});
@@ -14,44 +15,49 @@ export default function ProfilePage() {
 
   const showUpdate = () => {
     setEdit(true);
-    setDeatail(false)
+    setDeatail(false);
   };
 
-  const onUpdate = async()=>{
+  const onUpdate = async () => {
     try {
       let _id = user?._id;
-    const response = await axios.post("/api/users/editprofile", {
-      name,
-      email,
-      _id,
-    });
-    setEmail("");
-    setName("");
-    toast.success("User updated!")
-    setDeatail(false)
-    setEdit(false)
-    setData("nothing")
-    } catch (error:any) {
-      toast.error("Something went wrong!")
-        console.log(error.message)
+      const response = await axios.post("/api/users/editprofile", {
+        name,
+        email,
+        _id,
+      });
+      setEmail("");
+      setName("");
+      toast.success("User updated!");
+      setDeatail(false);
+      setEdit(false);
+      setData("nothing");
+    } catch (error: any) {
+      toast.error("Something went wrong!");
     }
-  }
+  };
 
   const showDetails = useCallback(async () => {
-    const resolveAfter3Sec = new Promise((resolve) =>
-      setTimeout(resolve, 1000)
-    );
-    toast.promise(resolveAfter3Sec, {
-      pending: "Promise is pending",
-      success: "Promise resolved 👌",
-      error: "Promise rejected 🤯",
-    });
-    const userDetail = await axios.get("/api/users/userDetails");
+    try {
+      const resolveAfter3Sec = new Promise((resolve) =>
+        setTimeout(resolve, 1000)
+      );
+      toast.promise(resolveAfter3Sec, {
+        pending: "User is coming",
+        success: "Users details 👌",
+        error: "Promise rejected 🤯",
+      });
+      const userDetail = await axios.get("/api/users/userDetails");
 
-    setData(userDetail?.data?.data._id);
-    setUser(userDetail?.data.data);
-    setDeatail(true);
+      setData(userDetail?.data?.data._id);
+      setUser(userDetail?.data.data);
+      setDeatail(true);
+    } catch (error: any) {
+      toast.error("Something went wrong!")
+    }
   }, []);
+
+
 
   return (
     <div className="flex gap-4 relative flex-col items-center justify-center  py-14">

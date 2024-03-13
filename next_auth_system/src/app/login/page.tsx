@@ -9,16 +9,14 @@ export default function page() {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-
+  
   const handleSubmit = async () => {
     const user = {
       email,
       password,
     };
-
+    
     try {
-      setLoading(true);
       await axios.post("/api/users/login", user);
       toast.success("Login sucessfull!");
       router.push("/");
@@ -26,13 +24,10 @@ export default function page() {
       console.log("Login failed", error.message);
       toast.error("Invalid credentials");
     } finally {
-      setLoading(false);
     }
   };
+  
 
-  if (loading) {
-    <div className="bg-gray-500 h-screen text-4xl text-white">Loading</div>;
-  }
 
   return (
     <div className="flex py-14 justify-center items-center">

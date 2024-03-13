@@ -11,14 +11,12 @@ function page() {
 
   const EmailVerified = async () => {
     try {
-        console.log(token)
       await axios.post("/api/users/verifyemail", { token });
       toast.success("User verified sucessfully!")
       setVerified(true);
     } catch (error: any) {
       setError(true);
       toast.error("Something Went wrong!")
-      console.log(error.response.data);
     }
   };
 
@@ -33,6 +31,7 @@ function page() {
       EmailVerified();
     }
   }, [token]);
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">

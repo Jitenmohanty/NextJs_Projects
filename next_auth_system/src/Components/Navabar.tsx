@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const Navabar = ({ request }: any) => {
+const Navabar = () => {
   const pathname = usePathname();
   const [auth, setAuth] = useState(false);
   const router = useRouter();
@@ -29,7 +29,7 @@ const Navabar = ({ request }: any) => {
 
   return (
     <div className=" bg-[#150e35] px-8 flex justify-between items-center w-full h-16">
-      <div className="logo">
+      <div className="logo lg:block  hidden">
         <img
           className="h-12 w-12 rounded-2xl"
           src="https://images.pexels.com/photos/39624/padlock-lock-chain-key-39624.jpeg?auto=compress&cs=tinysrgb&w=600"

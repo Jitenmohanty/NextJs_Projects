@@ -8,9 +8,8 @@ import { toast } from "react-toastify";
 const page = () => {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
-  const [loader, setLoader] = useState(false);
-
-  const onsubmit:any = async () => {
+  
+  const onsubmit: any = async () => {
     try {
       if (email.length > 0) {
         await axios.post("/api/users/forgotpassword", {
@@ -22,13 +21,9 @@ const page = () => {
     } catch (error: any) {
       toast.error("Something Went wrong!");
       setSent(false);
-      console.log(error.message);
     }
   };
-
-  if(loader){
-    
-  }
+  
 
   return (
     <div className="flex h-screen justify-center items-center">
@@ -50,7 +45,7 @@ const page = () => {
         <button
           onClick={onsubmit}
           className={`p-2 bg-green-500  rounded-lg px-4 mt-4 font-bold cursor-pointer ${
-            sent ? "opacity-[.6]":"opacity-[1]"
+            sent ? "opacity-[.6]" : "opacity-[1]"
           } `}
         >
           Sent
