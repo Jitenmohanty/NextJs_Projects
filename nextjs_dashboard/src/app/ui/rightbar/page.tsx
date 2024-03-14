@@ -1,0 +1,16 @@
+import React from 'react'
+
+const Rightbar = () => {
+  return (
+    <div className='bg-blue-950 border-[.1px] p-3  rounded-lg border-yellow-100  w-[30%]'>
+        <div className="top flex justify-between  text-xl font-semibold text-white">
+            <h1>Filter</h1>
+            <h1>Save</h1>
+        </div>
+        <input type="text" placeholder='Search save post...' className='w-full px-2 mt-4 py-2 rounded-lg'/>
+        
+    </div>
+  )
+}
+
+export default Rightbar;
