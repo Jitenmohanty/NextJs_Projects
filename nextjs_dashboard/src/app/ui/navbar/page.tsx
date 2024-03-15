@@ -11,7 +11,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex justify-between items-center h-[9vh] w-full bg-blue-950 px-8 py-2">
+    <div className="flex fixed top-0  justify-between items-center h-[9vh] w-full bg-blue-950 px-8 py-2">
       <div className="flex justify-start w-[50%] text-white items-center gap-2 px-4 py-2 rounded-lg bg-slate-700 ">
         <MdSearch className="text-xl" />
         <input

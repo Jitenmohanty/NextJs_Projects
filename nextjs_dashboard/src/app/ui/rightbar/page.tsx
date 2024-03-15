@@ -2,7 +2,7 @@ import React from 'react'
 
 const Rightbar = () => {
   return (
-    <div className='bg-blue-950 border-[.1px] p-3  rounded-lg border-yellow-100  w-[30%]'>
+    <div className='bg-blue-950 border-[.1px] h-[60vh] p-3  rounded-lg border-yellow-100  w-[30%]'>
         <div className="top flex justify-between  text-xl font-semibold text-white">
             <h1>Filter</h1>
             <h1>Save</h1>

@@ -1,9 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-// import { saveItem, unsaveItem } from '../slices/savedItemsSlice';
 
 const useFetch = () => {
     const [photosRes, setPhotosRes] = useState([]);
@@ -13,8 +11,8 @@ const useFetch = () => {
       const fetchData = async () => {
         try {
           const [photosResponse, postsResponse] = await Promise.all([
-            axios.get('https://jsonplaceholder.typicode.com/photos?_limit=100'),
-            axios.get('https://jsonplaceholder.typicode.com/posts'),
+            axios.get(`https://jsonplaceholder.typicode.com/photos?_limit=100`),
+            axios.get(`https://jsonplaceholder.typicode.com/posts?_limit=100`),
           ]);
           setPhotosRes(photosResponse.data);
           setPostsRes(postsResponse.data);
