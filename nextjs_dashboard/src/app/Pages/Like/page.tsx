@@ -1,21 +1,20 @@
 "use client";
-import ImageGallery from "@/app/components/Image";
-import Post from "@/app/components/Post";
-import Image from "next/image";
+import ImageGallery from "@/components/Image";
+import Post from "@/components/Post";
+import { unlikePost } from "@/app/store/reducers/posts";
 import React, { useEffect, useState } from "react";
+import { CgFileRemove } from "react-icons/cg";
+import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 const Like = () => {
-  // const likedPosts = useSelector((state: any) => state.posts.likedPosts);
-  const [likedPosts,setLikedPost] = useState<any>();
+  const likedPosts = useSelector((state: any) => state.posts.likedPosts);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(localStorage.getItem("likedPosts")){
-      let likePost = JSON.parse(localStorage.getItem("likedPosts")!);
-      setLikedPost(likePost)
-    }
-  },[])
+
+  function handleRemove(id: any): void {
+    dispatch(unlikePost(id))
+  }
 
   return (
     <div className="mt-16 flex flex-col w-full gap-8 justify-center items-center text-white">
@@ -25,10 +24,13 @@ const Like = () => {
           likedPosts?.map((item: any, index: number) => (
             <div
               key={index}
-              className="bg-blue-950  min-h-[65vh] lg:w-[40%] w-[90%] flex flex-col border-[.1px] rounded-lg p-3 text-white border-yellow-100 gap-4 "
+              className="bg-blue-950 min-h[50vh]  lg:min-h-[65vh] lg:w-[40%] w-[90%] flex flex-col border-[.1px] rounded-lg p-3 text-white border-yellow-100 gap-4 "
             >
               <ImageGallery photo={item.photos}/>
               <Post post={item.post}/>
+              <div className="flex justify-end items-end">
+                <button onClick={()=>handleRemove(item.post.id)}><MdDelete size={25} color="red"/></button>
+              </div>
             </div>
           ))}
       </div>

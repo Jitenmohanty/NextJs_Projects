@@ -1,7 +1,7 @@
 "use client";
 
-import ImageGallery from "@/app/components/Image";
-import Post from "@/app/components/Post";
+import ImageGallery from "@/components/Image";
+import Post from "@/components/Post";
 import {
   likePost,
   savePost,
@@ -18,34 +18,18 @@ import { useDispatch, useSelector } from "react-redux";
 const Posts = () => {
   const dispatch = useDispatch();
   const { photosRes, postsRes } = useFetch();
+  const savedPosts = useSelector((state: any) => state?.posts.savedPosts);
+  const likedPosts = useSelector((state: any) => state?.posts.likedPosts);
   const [photos, setPhotos] = useState(photosRes);
   const [posts, setPosts] = useState(postsRes);
   const [page, setPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [savedPosts,setSavedPost] = useState<any>();
-  const [likedPosts,setLikedPost] = useState<any>();
-
-
 
   useEffect(() => {
     setPhotos(photosRes);
     setPosts(postsRes);
     setCurrentIndex(0);
   }, [photos, posts, photosRes, postsRes]);
-
-  useEffect(()=>{
-    if(localStorage.getItem("likedPosts")){
-      let likePost = JSON.parse(localStorage.getItem("likedPosts")!);
-      setLikedPost(likePost)
-    }
-  },[])
-  useEffect(()=>{
-    if(localStorage.getItem("savedPosts")){
-      let savePost = JSON.parse(localStorage.getItem("savedPosts")!);
-      setSavedPost(savePost)
-    }
-  },[])
-
 
   const totalPages = Math.ceil(posts?.length / 20);
 
@@ -84,7 +68,6 @@ const Posts = () => {
     dispatch(unsavePost(id));
   };
 
-
   return (
     <div className="w-full flex flex-col gap-4">
       <div className=" flex flex-col gap-4">
@@ -92,7 +75,7 @@ const Posts = () => {
           posts.slice(page * 20 - 20, page * 20).map((post: any, index) => (
             <div
               key={index}
-              className="bg-blue-950  min-h-[60vh] flex flex-col border-[.1px] rounded-lg p-3 text-white border-yellow-100 "
+              className="bg-blue-950 min-h-[45vh]  lg:min-h-[60vh] flex flex-col border-[.1px] rounded-lg p-3 text-white border-yellow-100 "
             >
               {photos && (
                 <ImageGallery photo={photos[(page - 1) * 20 + index]} />
@@ -120,16 +103,16 @@ const Posts = () => {
                 {savedPosts &&
                 savedPosts.some((save: any) => save.post.id === post.id) ? (
                   <button
-                    onClick={() =>
-                      handleUnSavepost(post.id)
-                    }
+                    onClick={() => handleUnSavepost(post.id)}
                     className="text-2xl text-green-400"
                   >
                     <FaSave />
                   </button>
                 ) : (
                   <button
-                    onClick={() => handleSavepost(post, photos[(page - 1) * 20 + index])}
+                    onClick={() =>
+                      handleSavepost(post, photos[(page - 1) * 20 + index])
+                    }
                     className="text-2xl"
                   >
                     <FaRegSave />

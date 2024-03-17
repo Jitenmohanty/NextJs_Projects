@@ -2,9 +2,24 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
+function getLikePost() {
+  if (localStorage.getItem("likedPosts")) {
+    return JSON.parse(localStorage.getItem("likedPosts"));
+  } else {
+    return [];
+  }
+}
+function getSavePost() {
+  if (localStorage.getItem("savedPosts")) {
+    return JSON.parse(localStorage.getItem("savedPosts"));
+  } else {
+    return [];
+  }
+}
+
 const initialState = {
-  savedPosts: [],
-  likedPosts: [],
+  savedPosts: getSavePost(),
+  likedPosts: getLikePost(),
 };
 
 const postSlice = createSlice({
@@ -24,7 +39,6 @@ const postSlice = createSlice({
         (item) => item.post.id !== postId
       );
       localStorage.setItem("likedPosts", JSON.stringify(state.likedPosts));
-
     },
     savePost(state, action) {
       const postId = action.payload;
@@ -39,7 +53,6 @@ const postSlice = createSlice({
         (item) => item.post.id !== postId
       );
       localStorage.setItem("savedPosts", JSON.stringify(state.savedPosts));
-
     },
   },
 });
