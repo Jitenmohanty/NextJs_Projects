@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const { photosRes, postsRes } = useFetch();
+  const { photosRes, postsRes, loading } = useFetch();
   const savedPosts = useSelector((state: any) => state?.posts.savedPosts);
   const likedPosts = useSelector((state: any) => state?.posts.likedPosts);
   const [photos, setPhotos] = useState(photosRes);
@@ -67,6 +67,14 @@ const Posts = () => {
   const handleUnSavepost = (id: any) => {
     dispatch(unsavePost(id));
   };
+
+  if (loading) {
+    return (
+      <div className="loader">
+        <div></div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col gap-4">

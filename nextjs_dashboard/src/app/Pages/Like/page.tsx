@@ -6,14 +6,25 @@ import React, { useEffect, useState } from "react";
 import { CgFileRemove } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import useFetch from "@/app/utils/Fetching/page";
 
 const Like = () => {
   const likedPosts = useSelector((state: any) => state.posts.likedPosts);
   const dispatch = useDispatch();
+  const {loading} = useFetch();
+
 
 
   function handleRemove(id: any): void {
     dispatch(unlikePost(id))
+  }
+
+  if (loading) {
+    return (
+      <div className="loader">
+        <div></div>
+      </div>
+    );
   }
 
   return (

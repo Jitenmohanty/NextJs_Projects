@@ -10,7 +10,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex fixed top-0  justify-between items-center h-[6vh] lg:h-[9vh] w-full bg-[#353131] px-2 lg:px-8 md:px-4 py-2">
+    <div className="flex fixed top-0  justify-between items-center h-[7vh] lg:h-[9vh] w-full bg-[#353131] px-2 lg:px-8 md:px-4 py-2">
       <div className="flex justify-start lg:w-[70%] w-[80%] text-white items-center gap-2 px-4 py-2 rounded-lg bg-slate-700 ">
         <MdSearch className="text-xl" />
         <input

@@ -4,16 +4,23 @@ import Post from "@/components/Post";
 import { unsavePost } from "@/app/store/reducers/posts";
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useFetch from "@/app/utils/Fetching/page";
 
 const Save = () => {
   const savedPosts = useSelector((state: any) => state.posts.savedPosts);
   const dispatch = useDispatch();
-
+  const { loading } = useFetch();
 
   function handleRemove(id: any): void {
-    dispatch(unsavePost(id))
-
+    dispatch(unsavePost(id));
+  }
+  if (loading) {
+    return (
+      <div className="loader">
+        <div></div>
+      </div>
+    );
   }
 
   return (
@@ -26,10 +33,12 @@ const Save = () => {
               key={index}
               className="bg-blue-950 min-h[50vh]  lg:min-h-[65vh] lg:w-[40%] w-[90%] flex flex-col border-[.1px] rounded-lg p-3 text-white border-yellow-100 gap-4 "
             >
-              <ImageGallery photo={item.photos}/>
-              <Post post={item.post}/>
+              <ImageGallery photo={item.photos} />
+              <Post post={item.post} />
               <div className="flex justify-end items-end">
-                <button onClick={()=>handleRemove(item.post.id)}><MdDelete size={25} color="red"/></button>
+                <button onClick={() => handleRemove(item.post.id)}>
+                  <MdDelete size={25} color="red" />
+                </button>
               </div>
             </div>
           ))}
