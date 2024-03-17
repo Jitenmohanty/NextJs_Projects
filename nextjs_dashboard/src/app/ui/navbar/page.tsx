@@ -42,7 +42,7 @@ const Navbar = () => {
           {hover && (
             <ul className="bg-black text-lg lg:text-[1.2vw] text-gray-300 flex flex-col gap-2 font-mono font-semibold px-4 py-2 rounded-lg absolute top-6 right-4 uppercase">
               <Link
-                href={"/pages/like"}
+                href="/pages/like"
                 className={`${
                   pathname === "/pages/like" ? "text-gray-500 " : ""
                 } cursor-pointer`}
@@ -50,7 +50,7 @@ const Navbar = () => {
                 Likes
               </Link>
               <Link
-                href={"/pages/save"}
+                href="/pages/save"
                 className={`${
                   pathname === "/pages/save" ? "text-gray-500 " : ""
                 } cursor-pointer`}
@@ -58,7 +58,7 @@ const Navbar = () => {
                 Save
               </Link>
               <Link
-                href={"/pages/profile"}
+                href="/pages/profile"
                 className={`${
                   pathname === "/pages/profile" ? "text-gray-500 " : ""
                 } cursor-pointer`}
