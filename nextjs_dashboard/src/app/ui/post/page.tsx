@@ -1,3 +1,4 @@
+"use client"
 import ImageGallery from "@/components/Image";
 import Post from "@/components/Post";
 import {
