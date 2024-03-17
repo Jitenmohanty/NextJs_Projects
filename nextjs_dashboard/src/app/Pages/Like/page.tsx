@@ -2,8 +2,6 @@
 import ImageGallery from "@/components/Image";
 import Post from "@/components/Post";
 import { unlikePost } from "@/app/store/reducers/posts";
-import React, { useEffect, useState } from "react";
-import { CgFileRemove } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "@/app/utils/Fetching/fetch";
@@ -12,7 +10,6 @@ const Like = () => {
   const likedPosts = useSelector((state: any) => state.posts.likedPosts);
   const dispatch = useDispatch();
   const {loading} = useFetch();
-
 
 
   function handleRemove(id: any): void {
