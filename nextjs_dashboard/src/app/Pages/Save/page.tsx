@@ -5,7 +5,7 @@ import { unsavePost } from "@/app/store/reducers/posts";
 import React from "react";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import useFetch from "@/app/utils/Fetching/page";
+import useFetch from "@/app/utils/Fetching/fetch";
 
 const Save = () => {
   const savedPosts = useSelector((state: any) => state.posts.savedPosts);

@@ -7,7 +7,7 @@ import {
   unlikePost,
   unsavePost,
 } from "@/app/store/reducers/posts";
-import useFetch from "@/app/utils/Fetching/page";
+import useFetch from "@/app/utils/Fetching/fetch";
 import { useEffect, useState } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { BiLike } from "react-icons/bi";

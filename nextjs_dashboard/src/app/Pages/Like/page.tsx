@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { CgFileRemove } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import useFetch from "@/app/utils/Fetching/page";
+import useFetch from "@/app/utils/Fetching/fetch";
 
 const Like = () => {
   const likedPosts = useSelector((state: any) => state.posts.likedPosts);
