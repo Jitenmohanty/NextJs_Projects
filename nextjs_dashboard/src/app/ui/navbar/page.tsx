@@ -33,7 +33,7 @@ const Navbar = () => {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           className={`${
-            pathname === "/pages/like" || "/pages/save" || "/pages/profile"
+            pathname === "/Pages/Like" || "/Pages/Save" || "/Pages/Profile"
               ? "text-gray-500"
               : ""
           }  flex  gap-4 relative text-white`}
@@ -42,25 +42,25 @@ const Navbar = () => {
           {hover && (
             <ul className="bg-black text-lg lg:text-[1.2vw] text-gray-300 flex flex-col gap-2 font-mono font-semibold px-4 py-2 rounded-lg absolute top-6 right-4 uppercase">
               <Link
-                href="/pages/like"
+                href="/Pages/Like"
                 className={`${
-                  pathname === "/pages/like" ? "text-gray-500 " : ""
+                  pathname === "/Pages/Like" ? "text-gray-500 " : ""
                 } cursor-pointer`}
               >
                 Likes
               </Link>
               <Link
-                href="/pages/save"
+                href="/Pages/Save"
                 className={`${
-                  pathname === "/pages/save" ? "text-gray-500 " : ""
+                  pathname === "/Pages/Save" ? "text-gray-500 " : ""
                 } cursor-pointer`}
               >
                 Save
               </Link>
               <Link
-                href="/pages/profile"
+                href="/Pages/Profile"
                 className={`${
-                  pathname === "/pages/profile" ? "text-gray-500 " : ""
+                  pathname === "/Pages/Profile" ? "text-gray-500 " : ""
                 } cursor-pointer`}
               >
                 Profile
