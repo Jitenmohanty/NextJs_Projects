@@ -9,11 +9,13 @@ const LogoutPage = () => {
   const { setAuthStatus } = useAuth();
 
   useEffect(() => {
-    appwriteService.logout().then(() => {
-      setAuthStatus(false);
-      router.replace("/")
-    });
-  },[]);
+    appwriteService
+      .logout()
+      .then(() => {
+        setAuthStatus(false);
+        router.replace("/");
+      })
+  }, []);
 
   return <></>;
 };

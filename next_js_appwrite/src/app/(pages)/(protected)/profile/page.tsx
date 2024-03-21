@@ -14,6 +14,7 @@ const ProfilePage = () => {
                 <span className="text-3xl font-bold">My Account</span>
             </h1>
             <ProfileCard />
+            
         </div>
     );
 }

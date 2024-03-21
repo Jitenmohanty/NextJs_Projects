@@ -2,8 +2,6 @@
 import useAuth from "@/context/useAuth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const Header = () => {
   const pathname = usePathname();
@@ -11,7 +9,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="fixed bg-[#150e35] px-8 flex justify-between items-center w-full h-16">
+    <div className="fixed z-50 bg-[#231859] px-8 flex justify-between items-center w-full h-16">
       <div className="logo lg:block  hidden">
         <img
           className="h-12 w-12 rounded-2xl"
@@ -19,7 +17,7 @@ const Header = () => {
           alt=""
         />
       </div>
-      <div className="flex justify-around items-center gap-8 text-white text-lg">
+      <div className="flex justify-around items-center w-full lg:w-[40%]  text-white text-lg">
         <Link
           className={`uppercase text-sm font-bold ${
             pathname === "/" ? "text-gray-400 " : ""

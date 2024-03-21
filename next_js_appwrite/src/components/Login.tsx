@@ -1,6 +1,7 @@
 "use client";
 import appwriteService from "@/appwrite/config";
 import useAuth from "@/context/useAuth";
+import Loader from "@/components/Loader"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
@@ -8,6 +9,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const router = useRouter();
+  const [loading,setLoading] = useState(false);
   const [fromdata, setFromdata] = useState({
     email: "",
     password: "",
@@ -17,19 +19,22 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const session = await appwriteService.login(fromdata);
       toast.success("user created sucessfully");
       if (session) {
         setAuthStatus(true);
+        setLoading(false)
         router.push("/profile");
       }
     } catch (error: any) {
+      setLoading(false)
       toast.error("Invalid credential!");
     }
   };
 
   return (
-    <div className="flex py-14 justify-center items-center">
+    <div className="flex py-14 mt-14 justify-center items-center">
       <form action="" onSubmit={handleSubmit}>
         <div className="inner flex flex-col justify-center items-center gap-4 border-2 border-red-300 py-8 px-6 rounded-lg">
           <h1 className="uppercase text-2xl font-bold text-gray-400">
@@ -68,11 +73,11 @@ const Login = () => {
               fromdata.email && fromdata.password
                 ? "opacity-[1]"
                 : "opacity-[.6] cursor-not-allowed"
-            } p-2 bg-blue-500 rounded-lg px-4 mt-4 font-bold cursor-pointer`}
+            } p-2 bg-blue-500 rounded-lg px-4 mt-4 flex justify-center items-center  gap-2 font-bold cursor-pointer`}
           >
-            Login
+          {loading && <Loader/>}  Login 
           </button>
-          <div className="flex  gap-2">
+          <div className="flex justify-center items-center  gap-2">
             <Link href="#" className="underline text-blue-300">
               Forgot password?{" "}
             </Link>

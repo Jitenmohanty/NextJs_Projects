@@ -30,7 +30,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center py-8">
+    <div className="flex mt-14 justify-center items-center py-8">
       <form action="" onSubmit={handleSubmit}>
         <div className="inner flex flex-col justify-center items-center gap-3 border-2 border-red-300 py-6 px-6 rounded-lg">
           <h1 className="uppercase text-2xl font-bold text-gray-400">
