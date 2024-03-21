@@ -1,4 +1,5 @@
 "use client";
+import useAuth from "@/context/useAuth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -6,13 +7,11 @@ import { toast } from "react-toastify";
 
 const Header = () => {
   const pathname = usePathname();
-  const [auth, setAuth] = useState(false);
+  const { authStatus } = useAuth();
   const router = useRouter();
 
- 
-
   return (
-    <div className=" bg-[#150e35] px-8 flex justify-between items-center w-full h-16">
+    <div className="fixed bg-[#150e35] px-8 flex justify-between items-center w-full h-16">
       <div className="logo lg:block  hidden">
         <img
           className="h-12 w-12 rounded-2xl"
@@ -37,12 +36,13 @@ const Header = () => {
         >
           Profile
         </Link>
-        {auth ? (
-          <button
+        {authStatus ? (
+          <Link
+            href={"/logout"}
             className="uppercase text-sm font-bold border-white transition-all hover:bg-red-700 text-white  py-2 px-4 rounded"
           >
             Logout
-          </button>
+          </Link>
         ) : (
           <>
             <Link

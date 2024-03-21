@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 const LogoutPage = () => {
-  const { setAuthStatus } = useAuth();
   const router = useRouter();
+  const { setAuthStatus } = useAuth();
 
   useEffect(() => {
     appwriteService.logout().then(() => {

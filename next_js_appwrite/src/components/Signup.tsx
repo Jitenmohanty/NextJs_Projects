@@ -20,7 +20,6 @@ const Signup = () => {
     try {
       const userData = await appwriteService.createUserAccount(fromdata);
       toast.success("User created sucessfull!")
-      console.log(fromdata)
       if (userData) {
         setAuthStatus(true);
         router.push("/profile");
@@ -78,10 +77,11 @@ const Signup = () => {
           />
           <button
             type="submit"
+            disabled={fromdata.email.length ==0 && fromdata.username.length === 0 && fromdata.password.length === 0}
             className={`${
-              fromdata.email && fromdata.password
+              fromdata.email && fromdata.password && fromdata.username
                 ? "opacity-[1]"
-                : "opacity-[.6]"
+                : "opacity-[.6] cursor-not-allowed"
             } p-2 bg-blue-500 rounded-lg px-4 mt-4 font-bold cursor-pointer`}
           >
             Signup

@@ -1,7 +1,7 @@
 "use client"
 
-
 import Login from '@/components/Login'
+import ProfileCard from '@/components/ProfileCard'
 import useAuth from '@/context/useAuth'
 import React from 'react'
 
@@ -31,7 +31,7 @@ const Home = () => {
         <div className="w-full sm:w-1/2 px-2 flex flex-wrap justify-end">
             {authStatus ? (
                 <div className="max-w-md">
-                   <h1>Profile page</h1>
+                   <ProfileCard/>
                 </div>
             ) : (
                 <Login />

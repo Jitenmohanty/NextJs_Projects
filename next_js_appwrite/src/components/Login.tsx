@@ -12,7 +12,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const {setAuthStatus} = useAuth();
+  const { setAuthStatus } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,9 +20,9 @@ const Login = () => {
       const session = await appwriteService.login(fromdata);
       toast.success("user created sucessfully");
       if (session) {
-        setAuthStatus(true)
-        router.push("/profile")
-    }
+        setAuthStatus(true);
+        router.push("/profile");
+      }
     } catch (error: any) {
       toast.error("Invalid credential!");
     }
@@ -62,11 +62,12 @@ const Login = () => {
             placeholder="password.."
           />
           <button
+          disabled={ fromdata.email.length === 0 && fromdata.password.length === 0}
             type="submit"
             className={`${
               fromdata.email && fromdata.password
                 ? "opacity-[1]"
-                : "opacity-[.6]"
+                : "opacity-[.6] cursor-not-allowed"
             } p-2 bg-blue-500 rounded-lg px-4 mt-4 font-bold cursor-pointer`}
           >
             Login
