@@ -4,6 +4,8 @@ import Blog from "@/components/Blog";
 import Header from "@/components/Header";
 import { AuthProvider } from "@/context/authContext";
 import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProtectedLayout = ({
     children,
@@ -47,6 +49,18 @@ const ProtectedLayout = ({
                     <main className="px-2 py-4">{children}</main>
                 </>
             )}
+            <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         </AuthProvider>
 
 }
