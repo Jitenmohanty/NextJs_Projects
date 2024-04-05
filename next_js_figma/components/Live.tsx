@@ -13,11 +13,16 @@ import {
   ReactionEvent,
 } from "../types/type";
 import CursorChart from "./cursor/CursorChart";
-import FlyingReaction from "./reactions/FlyingReaction";
-import ReactionSelector from "./reactions/ReactionButtons";
+import FlyingReaction from "./reaction/FlyingReaction";
+import ReactionSelector from "./reaction/ReactionButtons";
 import useInterval from "../hooks/useInterval";
 
-const Live = () => {
+type Props = {
+  canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+  
+};
+
+const Live = ({canvasRef}:Props) => {
   const others = useOthers();
   const [{ cursor }, updateMyPresence] = useMyPresence() as any;
   const [cursorState, setCursorState] = useState<CursorState>({
@@ -155,8 +160,10 @@ const Live = () => {
       onPointerLeave={handlePonterLeave}
       onPointerDown={handlePonterDown}
       onPointerUp={handlePointerUp}
-      className="h-[100vh] w-full flex justify-center items-center"
+      className="relative  h-full w-full flex-1 items-center justify-center"
     >
+      <canvas   ref={canvasRef} />
+
       <LiveCursor others={others} />
       {cursor && (
         <CursorChart
@@ -186,7 +193,6 @@ const Live = () => {
             value={reaction.value}
           />
         ))}
-      <h1 className="text-4xl text-white">Liveblocks Figma clone</h1>
     </div>
   );
 };
