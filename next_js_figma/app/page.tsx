@@ -9,13 +9,15 @@ import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
 import { ActiveElement } from "@/types/type";
 import { useMutation, useStorage } from "@/liveblocks.config";
+import { defaultNavElement } from "@/constants";
+import { handleDelete } from "@/lib/key-events";
 
 export default function Page() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fabricRef = useRef<fabric.Canvas | null>(null);
   const isDrawing = useRef(false);
   const shapeRef = useRef<fabric.Object | null>(null);
-  const selectedShapeRef = useRef<string | null>("rectangle");
+  const selectedShapeRef = useRef<string | null>(null);
   const activeObjectRef = useRef<fabric.Object | null>(null)
 
   const canvasObjects = useStorage((root)=>root.canvasObjects);
@@ -39,8 +41,40 @@ export default function Page() {
     icon:""
   })
 
+  const deleteAllShapes = useMutation(({storage},)=>{
+      const canvasObjects = storage.get('canvasObjects')
+
+      if(!canvasObjects || canvasObjects.size === 0) return true;
+
+      for(const [key,value] of canvasObjects.entries()){
+        canvasObjects.delete(key)
+      }
+
+      return canvasObjects.size === 0;
+
+  },[])
+   const deleteSelectShapesFromStorage = useMutation(({storage},shapeId)=>{
+      const canvasObjects = storage.get('canvasObjects');
+
+      canvasObjects.delete(shapeId)
+
+   },[])
+
   const handleActiveElement = (elem:ActiveElement)=>{
-    setActiveElement(elem)
+    setActiveElement(elem);
+
+    switch(elem?.value){
+      case 'reset':
+        deleteAllShapes();
+        fabricRef.current?.clear();
+        setActiveElement(defaultNavElement)
+        break;
+      case 'delete':
+        handleDelete(fabricRef.current as any,deleteSelectShapesFromStorage);
+        setActiveElement(defaultNavElement);
+        break;
+    }
+
     selectedShapeRef.current = elem?.value as string;
   }
 
@@ -120,6 +154,9 @@ export default function Page() {
       });
     });
 
+    return ()=>{
+      canvas.dispose();
+    }
     
   }, [canvasRef]); // run this effect only once when the component mounts and the canvasRef changes
 
