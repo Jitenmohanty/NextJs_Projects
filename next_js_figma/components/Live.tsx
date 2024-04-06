@@ -162,7 +162,7 @@ const Live = ({canvasRef}:Props) => {
       onPointerUp={handlePointerUp}
       className="relative  h-full w-full flex-1 items-center justify-center"
     >
-      <canvas   ref={canvasRef} />
+      <canvas width="1000" height="700"  ref={canvasRef} />
 
       <LiveCursor others={others} />
       {cursor && (
