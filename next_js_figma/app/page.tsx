@@ -8,6 +8,7 @@ import {
   handleCanvasMouseDown,
   handleCanvasMouseUp,
   handleCanvasObjectModified,
+  handleCanvasObjectScaling,
   handleCanvasSelectionCreated,
   handleCanvaseMouseMove,
   handleResize,
@@ -160,13 +161,20 @@ export default function Page() {
       });
     });
 
-    canvas.on("selection:created",(options)=>{
+    canvas.on("selection:created", (options) => {
       handleCanvasSelectionCreated({
         options,
         isEditingRef,
-        setElementAttributes
-      })
-    })
+        setElementAttributes,
+      });
+    });
+
+    canvas.on("object:scaling", (options) => {
+      handleCanvasObjectScaling({
+        options,
+        setElementAttributes,
+      });
+    });
 
     /**
      * listen to the resize event on the window which is fired when the

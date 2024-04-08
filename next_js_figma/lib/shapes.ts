@@ -115,7 +115,7 @@ export const handleImageUpload = ({
     });
   };
 
-  reader.readAsDataURL(file);
+  reader?.readAsDataURL(file);
 };
 
 export const createShape = (
