@@ -16,6 +16,8 @@ import CursorChart from "./cursor/CursorChart";
 import FlyingReaction from "./reaction/FlyingReaction";
 import ReactionSelector from "./reaction/ReactionButtons";
 import useInterval from "../hooks/useInterval";
+import { Comments } from "./comments/Comments";
+import { ContextMenu } from "@radix-ui/react-context-menu";
 
 type Props = {
   canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
@@ -155,6 +157,8 @@ const Live = ({canvasRef}:Props) => {
   }, []);
 
   return (
+    <ContextMenu>
+
     <div
       onPointerMove={handlePonterMove}
       onPointerLeave={handlePonterLeave}
@@ -162,7 +166,7 @@ const Live = ({canvasRef}:Props) => {
       onPointerUp={handlePointerUp}
       className="relative  h-full w-full flex-1 items-center justify-center"
     >
-      <canvas width="1000" height="700"  ref={canvasRef} />
+      <canvas width="1400" height="700"  ref={canvasRef} />
 
       <LiveCursor others={others} />
       {cursor && (
@@ -193,7 +197,10 @@ const Live = ({canvasRef}:Props) => {
             value={reaction.value}
           />
         ))}
+        <Comments/>
     </div>
+    </ContextMenu>
+
   );
 };
 

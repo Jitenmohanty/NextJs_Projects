@@ -45,6 +45,7 @@ const RightSidebar = ({elementAttributes,setElementAttributes,isEditingRef,fabri
           fontSize={elementAttributes.fontSize}
           fontWeight={elementAttributes.fontWeight}
           handleInputChange={handleInputChange}
+        
         />
         <Color
           inputRef={colorInputRef}

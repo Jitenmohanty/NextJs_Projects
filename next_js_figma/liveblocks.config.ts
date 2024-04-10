@@ -83,6 +83,10 @@ type RoomEvent = {
 // Optionally, when using Comments, ThreadMetadata represents metadata on
 // each thread. Can only contain booleans, strings, and numbers.
 export type ThreadMetadata = {
+  resolved: any;
+  x: any;
+  y: any;
+  zIndex: number;
   // resolved: boolean;
   // quote: string;
   // time: number;
