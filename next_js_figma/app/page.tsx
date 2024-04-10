@@ -11,6 +11,7 @@ import {
   handleCanvasObjectScaling,
   handleCanvasSelectionCreated,
   handleCanvaseMouseMove,
+  handlePathCreated,
   handleResize,
   initializeFabric,
   renderCanvas,
@@ -175,6 +176,13 @@ export default function Page() {
         setElementAttributes,
       });
     });
+
+    canvas.on("path:created",(options:any)=>{
+     handlePathCreated({
+      options,
+      syncShapeInStorage
+     })
+    })
 
     /**
      * listen to the resize event on the window which is fired when the
