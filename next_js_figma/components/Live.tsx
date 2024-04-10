@@ -3,14 +3,12 @@ import {
   useBroadcastEvent,
   useEventListener,
   useMyPresence,
-  useOthers,
 } from "../liveblocks.config";
 import LiveCursor from "./cursor/LiveCursor";
 import {
   CursorMode,
   CursorState,
   Reaction,
-  ReactionEvent,
 } from "../types/type";
 import CursorChart from "./cursor/CursorChart";
 import FlyingReaction from "./reaction/FlyingReaction";
@@ -32,8 +30,7 @@ type Props = {
 };
 
 const Live = ({ canvasRef,undo,redo }: Props) => {
-  const others = useOthers();
-  const [{ cursor }, updateMyPresence] = useMyPresence() as any;
+  const [{ cursor }, updateMyPresence] = useMyPresence();
   const [cursorState, setCursorState] = useState<CursorState>({
     mode: CursorMode.Hidden,
   });
@@ -77,7 +74,7 @@ const Live = ({ canvasRef,undo,redo }: Props) => {
   // useEventListener is used to listen to events broadcasted by other
   // * users.
   useEventListener((eventData) => {
-    const event = eventData.event as ReactionEvent;
+    const event = eventData.event;
 
     setReaction((reactions) =>
       reactions.concat([
@@ -201,7 +198,7 @@ const Live = ({ canvasRef,undo,redo }: Props) => {
       >
         <canvas width='1000' height='700' ref={canvasRef} />
 
-        <LiveCursor others={others} />
+        <LiveCursor/>
         {cursor && (
           <CursorChart
             cursor={cursor}
