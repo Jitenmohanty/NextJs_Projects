@@ -65,6 +65,8 @@ const userSchema:Schema<User> = new mongoose.Schema({
     
 })
 
+// First check if User schema is already exist then first statement execute otherwise goes to second statement<-- Basically it is a typescript validation... -->
+
 const UserModel = (mongoose.models.User as mongoose.Model<User>) ||   mongoose.model<User>('User',userSchema);
 
 export default UserModel;
