@@ -149,7 +149,7 @@ export default function SignUpForm() {
                   type='email'
               placeholder="email"
                   {...field} name="email" />
-                  <p className='text-muted text-gray-700 text-sm'>We will send you a verification code</p>
+                  <p className='text-muted text-blue-400 text-sm'>We will send you a verification code</p>
                   <FormMessage />
                 </FormItem>
               )}
