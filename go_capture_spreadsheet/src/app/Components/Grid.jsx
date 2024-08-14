@@ -4,13 +4,13 @@ import React from 'react';
 import Cells from './Cells';
 
 const Grid = () => {
-  const numberOfRows = 20;
-  const numberOfColumns = 6;
+  const numberOfRows = 9;
+  const numberOfColumns = 5;
   const totalCells = numberOfRows * numberOfColumns;
 
   return (
     <div
-      className="grid grid-cols-50 gap-1"
+      className="grid grid-cols-50 gap-1 border-2 border-black rounded-lg overflow-hidden p-2 bg-[#1f0d3f]"
       style={{ gridTemplateColumns: `repeat(${numberOfColumns}, 1fr)` }}
     >
       {[...Array(totalCells)].map((_, index) => (
