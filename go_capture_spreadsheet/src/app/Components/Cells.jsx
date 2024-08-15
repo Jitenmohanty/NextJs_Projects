@@ -10,6 +10,7 @@ const Cells = forwardRef(({ id }, ref) => {
   const setFocusedCellId = useCellStore((state) => state.setFocusedCellId);
   const alignment = cells[id]?.alignment || 'left'; // Default alignment
 
+  //Update the cell content with ID
   const handleChange = (event) => {
     updateCell(id, event.target.value);
   };
