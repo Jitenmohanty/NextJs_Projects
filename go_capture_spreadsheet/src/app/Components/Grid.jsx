@@ -28,7 +28,9 @@ const Grid = ({searchQuery}) => {
     .map((_, index) => index)
     .filter((id) => `Cell ${id + 1}`.toLowerCase().includes(searchQuery.toLowerCase()));
 
+
   return (
+
     <div
       className="grid gap-1 border-2 border-black rounded-lg overflow-hidden p-2 bg-[#1f0d3f]"
       style={{ gridTemplateColumns: `repeat(${numberOfColumns}, 1fr)` }}

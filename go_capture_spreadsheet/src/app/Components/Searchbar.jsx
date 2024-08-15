@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
 
-  const handleSearch = (e) => {
+
+const handleSearch = (e) => {
     setQuery(e.target.value);
     onSearch(e.target.value);
   };
