@@ -3,25 +3,65 @@ import { create } from "zustand";
 const cellsStore = (set, get) => {
   return {
     searchQuery: "",
-    
+
     cells: {}, // Store cell data
-  focusedCellId: null, // Track the currently focused cell
-  updateCell: (id, content) =>
-    set((state) => ({
+    focusedCellId: null, // Track the currently focused cell
+    history: [], // Initialize as empty array
+  future: [],  // Initialize as empty array
+  
+  updateCell: (id, content) => {
+    const { cells, history } = get();
+
+    // Record the current state before updating
+    set({
       cells: {
-        ...state.cells,
-        [id]: { ...state.cells[id], content, alignment: state.cells[id]?.alignment || 'left' }, // Store content and alignment
+        ...cells,
+        [id]: {
+          ...cells[id],
+          content,
+          alignment: cells[id]?.alignment || "left",
+        },
       },
-    })),
-  setFocusedCellId: (id) => set({ focusedCellId: id }),
-  setAlignment: (id, alignment) =>
-    set((state) => ({
-      cells: {
-        ...state.cells,
-        [id]: { ...state.cells[id], alignment },
-      },
-    })),
-    
+      history: [...history, { ...cells }], // Save the current state to history
+      future: [], // Clear future stack as new action is taken
+    });
+  },
+  
+  undo: () => {
+    const { history, cells, future } = get();
+    if (history.length > 0) {
+      const previous = history[history.length - 1];
+      const newHistory = history.slice(0, -1);
+      set({
+        cells: previous,
+        history: newHistory,
+        future: [cells, ...future],
+      });
+    }
+  },
+  
+  redo: () => {
+    const { future, cells, history } = get();
+    if (future.length > 0) {
+      const next = future[0];
+      const newFuture = future.slice(1);
+      set({
+        cells: next,
+        history: [...history, cells],
+        future: newFuture,
+      });
+    }
+  },
+
+    setFocusedCellId: (id) => set({ focusedCellId: id }),
+    setAlignment: (id, alignment) =>
+      set((state) => ({
+        cells: {
+          ...state.cells,
+          [id]: { ...state.cells[id], alignment },
+        },
+      })),
+
     // Update the search query
     updateSearchQuery: (query) => set({ searchQuery: query }),
 

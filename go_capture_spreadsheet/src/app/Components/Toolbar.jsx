@@ -14,6 +14,8 @@ import redo from "@/app/svgs/arrow-rotate-right-solid.svg";
 const Toolbar = ({ handleSearch }) => {
   const focusedCellId = useCellStore((state) => state.focusedCellId);
   const setAlignment = useCellStore((state) => state.setAlignment);
+  const undos = useCellStore((state) => state.undo);
+  const redos = useCellStore((state) => state.redo);
 
   const handleAlignmentChange = (alignment) => {
     if (focusedCellId !== null) {
@@ -63,6 +65,7 @@ const Toolbar = ({ handleSearch }) => {
             <div className="flex justify-around">
               <Image
                 className="text-gray-500"
+                onClick={undos}
                 src={undo}
                 alt="Undo"
                 width="18"
@@ -70,6 +73,7 @@ const Toolbar = ({ handleSearch }) => {
               />
               <Image
                 className="text-gray-500"
+                onClick={redos}
                 src={redo}
                 alt="Redo"
                 width="18"
