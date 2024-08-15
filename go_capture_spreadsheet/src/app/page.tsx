@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#ffff] p-4">
-      <h1 className="text-2xl font-bold mb-4 text-black text-center border-b-2 border-black font-serif">
+      <h1 className="lg:text-2xl md:text-2xl text-lg font-bold mb-4 text-black text-center border-b-2 border-black font-serif">
         Spreadsheet Application
       </h1>
       <div className="toolbar">

@@ -31,3 +31,30 @@ body {
     text-wrap: balance;
   }
 }
+
+  .mobile{
+    display: none;
+    position: absolute;
+    right: 0.5vw;
+    top: -9vw;
+  }
+
+
+@media (max-width:550px) {
+  .mobile{
+    display: block;
+  }
+  .Toolbar{
+    display: none;
+  }
+}
+@media (max-width:450px) {
+  .mobile{
+    display: block;
+    right: 0.5vw;
+    top: -12vw;
+  }
+  .Toolbar{
+    display: none;
+  }
+}

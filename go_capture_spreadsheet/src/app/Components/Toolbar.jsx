@@ -26,10 +26,12 @@ const Toolbar = ({ handleSearch }) => {
     }
   };
 
+  
+
   return (
     <div className="relative text-black w-full mb-2">
       {/* Hamburger menu for mobile view */}
-      <div className="block absolute top-[-6vw] right-2 lg:hidden md:hidden ">
+      <div className="mobile ">
         <Image
           src={menuIcon}
           alt="Menu"
@@ -39,12 +41,12 @@ const Toolbar = ({ handleSearch }) => {
           onClick={() => setMenuOpen(true)}
         />
         {isMenuOpen && (
-          <HamburgerMenu onClose={() => setMenuOpen(false)} />
+          <HamburgerMenu isMenuOpen={isMenuOpen} handleSearch={handleSearch}  onClose={() => setMenuOpen(false)} />
         )}
       </div>
 
       {/* Toolbar for desktop view */}
-      <div className={`hidden md:flex lg:flex justify-between`}>
+      <div className={` Toolbar flex justify-between`}>
         <div className="flex gap-4 w-1/2">
           <div className="left lg:w-[18vw] text-sm border md:w-[22vw] w-[28vw] border-[#191d1b] rounded-md ">
             <h2 className="font-bold text-lg text-center text-blue-800 font-serif">
