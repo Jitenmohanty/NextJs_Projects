@@ -31,4 +31,7 @@ const Cells = forwardRef(({ id }, ref) => {
   );
 });
 
+Cells.displayName = "Cells";
+
+
 export default Cells;
