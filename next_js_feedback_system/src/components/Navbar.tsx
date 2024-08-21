@@ -21,7 +21,7 @@ const Navbar = () => {
             <span className="mr-4">Welcome, {user.username || user.email}</span>
             <Button
               onClick={() => signOut()}
-              className='w-full md:w-auto hover:bg-blue-500 bg-slate-100 text-black" variant="outline"'
+              className='w-full md:w-auto hover:bg-red-500 font-bold hover:text-white transition-all ease-in-out  bg-slate-100 text-black'
             >
               Logout
             </Button>

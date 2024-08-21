@@ -1,6 +1,6 @@
 'use client'
 
-import { useState,useEffect } from "react"
+import { useState,useEffect, useCallback } from "react"
 import { useToast } from "@/components/ui/use-toast";
 import { Message } from "@/model/user.model"
 import { AcceptMessageSchema } from "@/Schemas/acceptMessageSchema";
@@ -38,7 +38,7 @@ const UserDashboard = () => {
 
   const acceptMessages = watch('acceptMessages');
 
-  const fetchAcceptMessages = async()=>{
+  const fetchAcceptMessages = useCallback(async()=>{
     setIsSwitchLoading(true);
 
     try {
@@ -57,34 +57,34 @@ const UserDashboard = () => {
     }finally{
         setIsSwitchLoading(false)
     }
-  }
+  },[setValue,setIsSwitchLoading])
 
-  const fetchMessages =
-    async (refresh: boolean = false) => {
-      setIsLoading(true);
-      setIsSwitchLoading(false);
-      try {
-        const response = await axios.get<ApiResponse>('/api/get-messages');
-        setMessages(response.data.messages || []);
-        if (refresh) {
-          toast({
-            title: 'Refreshed Messages',
-            description: 'Showing latest messages',
-          });
-        }
-      } catch (error) {
-        const axiosError = error as AxiosError<ApiResponse>;
+  const fetchMessages = useCallback( async (refresh: boolean = false) => {
+    setIsLoading(true);
+    setIsSwitchLoading(false);
+    try {
+      const response = await axios.get<ApiResponse>('/api/get-messages');
+      setMessages(response.data.messages || []);
+      if (refresh) {
         toast({
-          title: 'Error',
-          description:
-            axiosError.response?.data.message ?? 'Failed to fetch messages',
-          variant: 'destructive',
+          title: 'Refreshed Messages',
+          description: 'Showing latest messages',
         });
-      } finally {
-        setIsLoading(false);
-        setIsSwitchLoading(false);
       }
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponse>;
+      toast({
+        title: 'Error',
+        description:
+          axiosError.response?.data.message ?? 'Failed to fetch messages',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+      setIsSwitchLoading(false);
     }
+  },[setIsLoading,setMessages,toast])
+   
    
   // Fetch initial state from the server
     useEffect(()=>{
@@ -184,7 +184,7 @@ const UserDashboard = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={String(message._id)}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />
