@@ -65,6 +65,7 @@ export async function GET(request: Request) {
 
   // Check if the user is authenticated
   if (!session || !user) {
+    console.log("Not any session")
     return Response.json(
       { success: false, message: "Not authenticated" },
       { status: 401 }
@@ -77,6 +78,8 @@ export async function GET(request: Request) {
 
     if (!foundUser) {
       // User not found
+      console.log("User not found")
+
       return Response.json(
         { success: false, message: "User not found" },
         { status: 404 }
