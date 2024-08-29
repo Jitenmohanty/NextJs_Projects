@@ -42,7 +42,8 @@ const UserDashboard = () => {
     setIsSwitchLoading(true);
 
     try {
-        const response = await axios.get<ApiResponse>('/api/accept-message');
+        const response = await axios.get<ApiResponse>('/api/accept-messages');
+
         setValue('acceptMessages',response.data.isAccesptingMessage);
 
     } catch (error) {
@@ -99,7 +100,7 @@ const UserDashboard = () => {
   // Handle switch change
   const handleSwitchChange = async () => {
     try {
-      const response = await axios.post<ApiResponse>('/api/accept-messages', {
+      const response = await axios.post('/api/accept-messages', {
         acceptMessages: !acceptMessages,
       });
       setValue('acceptMessages', !acceptMessages);

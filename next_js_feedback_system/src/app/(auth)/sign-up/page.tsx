@@ -96,6 +96,7 @@ export default function SignUpForm() {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-800">

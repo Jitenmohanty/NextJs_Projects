@@ -16,13 +16,13 @@ export async function POST(request: Request) {
     );
   }
   const userId = user._id;
-  const { acceptMessage } = await request.json();
+  const {acceptMessages} = await request.json();
 
   try {
     //Update user message acceptance status;
     const updtaeUser = await UserModel.findByIdAndUpdate(
       userId,
-      { isAcceptingMessages: acceptMessage },
+      { isAcceptingMessages: acceptMessages },
       { new: true }
     );
 

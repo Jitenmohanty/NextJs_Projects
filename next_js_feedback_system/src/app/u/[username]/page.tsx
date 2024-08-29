@@ -80,8 +80,7 @@ const SendMessage = () => {
 
   const fetchSuggestedMessages = async () => {
     try {
-      const response = await complete("");
-      console.log(await response)
+       await complete("");
     } catch (error) {
       console.error("Error fetching messages:", error);
       // Handle error appropriately
