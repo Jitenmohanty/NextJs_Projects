@@ -20,7 +20,6 @@ export async function POST(req: Request) {
 
     const stream = GoogleGenerativeAIStream(response);
     
-    
     return new StreamingTextResponse(stream);
   } catch (error) {
     if (error instanceof GoogleGenerativeAIError) {
