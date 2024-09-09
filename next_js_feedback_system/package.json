@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.17.1",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
@@ -17,7 +18,7 @@
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@react-email/components": "^0.0.22",
-    "ai": "^3.2.42",
+    "ai": "^3.3.30",
     "axios": "^1.7.3",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
