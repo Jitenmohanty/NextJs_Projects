@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -9,48 +9,46 @@ import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
-import { setDefaultAutoSelectFamily } from "net";
-import { useParams, useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import  * as z from "zod";
+import * as z from "zod";
 
-const page = () => {
+const Page = () => {
+  const params = useParams();
+  const router = useRouter();
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof verifySchema>>({
+    resolver: zodResolver(verifySchema),
+  });
+  const [loader, setLoader] = useState(false);
 
-    const params = useParams();
-    const router = useRouter();
-    const {toast} = useToast();
-    const form = useForm<z.infer<typeof verifySchema>>({
-        resolver:zodResolver(verifySchema)
-    })
-    const [loader,setLoader] = useState(false)
-
-    const onSubmit = async (data:z.infer<typeof verifySchema>)=>{
-        try {
-            setLoader(true)
-            const response = await axios.post<ApiResponse>('/api/verify-code',{
-                username:params.username,
-                code: data.code
-            })
-            setLoader(false)
-            toast({
-                title:"Success",
-                description:response.data.message
-            })
-            router.replace('/sign-in')
-        } catch (error) {
-            const axiosError = error as AxiosError<ApiResponse>;
-            toast({
-              title: 'Verification Failed',
-              description:
-                axiosError.response?.data.message ??
-                'An error occurred. Please try again.',
-              variant: 'destructive',
-            });
-        }finally{
-            setLoader(false)
-        }
+  const onSubmit = async (data: z.infer<typeof verifySchema>) => {
+    try {
+      setLoader(true);
+      const response = await axios.post<ApiResponse>("/api/verify-code", {
+        username: params.username,
+        code: data.code,
+      });
+      setLoader(false);
+      toast({
+        title: "Success",
+        description: response.data.message,
+      });
+      router.replace("/sign-in");
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiResponse>;
+      toast({
+        title: "Verification Failed",
+        description:
+          axiosError.response?.data.message ??
+          "An error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoader(false);
     }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-blue-950">
@@ -74,21 +72,21 @@ const page = () => {
                 </FormItem>
               )}
             />
-           <Button type="submit" className='w-full' disabled={loader}>
+            <Button type="submit" className="w-full" disabled={loader}>
               {loader ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
                 </>
               ) : (
-                'Verify'
+                "Verify"
               )}
             </Button>
           </form>
         </Form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
