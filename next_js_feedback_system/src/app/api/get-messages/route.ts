@@ -9,7 +9,7 @@ export async function GET(request:Request) {
     await dbConnect();
     const session = await getServerSession(authOptions)
     const _user:User = session?.user as User;
-
+    // console.log(_user,"user")
     if(!session || !_user){
         return Response.json(
             { success: false, message: 'Not authenticated' },
@@ -18,7 +18,7 @@ export async function GET(request:Request) {
     }
     //Convert if id in string it convert it into number
     const userId = new mongoose.Types.ObjectId(_user._id);
-
+// console.log(userId)
     try {
         //Add agrigetion pipelining for fillter out all messages with sorting order.
         const user = await UserModel.aggregate([
@@ -27,10 +27,10 @@ export async function GET(request:Request) {
             {$sort:{'messages.createdAt':-1}},
             {$group:{_id:'$_id',messages:{$push:'$messages'}}}
         ]).exec();
-
+        // console.log(user,"user here")
         if(!user || user.length === 0){
             return Response.json(
-                { message: 'User not found', success: false },
+                { message: 'Message not found', success: false },
                 { status: 404 }
               );
         }

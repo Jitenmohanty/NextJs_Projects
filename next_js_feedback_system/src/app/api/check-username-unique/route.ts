@@ -2,6 +2,7 @@ import dbConnect from "@/lib/DbConnect";
 import UserModel from "@/model/user.model";
 import { usernameValidation } from "@/Schemas/signUpSchema";
 import { z } from "zod";
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 
 
 const UsernameQuerySchema = z.object({
@@ -12,8 +13,9 @@ export async function GET(request:Request) {
 
     await dbConnect();
 
+    const {searchParams} = new URL(request.url);
     try {
-        const {searchParams} = new URL(request.url);
+        // console.log(searchParams)
         const queryParams =  {
             username:searchParams.get('username')
         }
@@ -50,6 +52,9 @@ export async function GET(request:Request) {
 
     } catch (error) {
         console.error('Error checking username:', error);
+        if (isDynamicServerError(error)) {
+            throw error;
+          }
         return Response.json(
           {
             success: false,

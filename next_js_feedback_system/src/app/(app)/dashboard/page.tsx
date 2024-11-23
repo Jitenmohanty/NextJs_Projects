@@ -17,7 +17,6 @@ import { Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
 
 
-
 const UserDashboard = () => {
 
   const [messages,setMessages] = useState<Message[]>([]);
@@ -75,7 +74,7 @@ const UserDashboard = () => {
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
-        title: 'Error',
+        title: 'Warning',
         description:
           axiosError.response?.data.message ?? 'Failed to fetch messages',
         variant: 'destructive',
@@ -84,7 +83,7 @@ const UserDashboard = () => {
       setIsLoading(false);
       setIsSwitchLoading(false);
     }
-  },[setIsLoading,setMessages,toast])
+  },[isLoading,toast])
    
    
   // Fetch initial state from the server
@@ -95,7 +94,7 @@ const UserDashboard = () => {
       fetchAcceptMessages();
       fetchMessages();
 
-    },[session,setValue,toast,fetchAcceptMessages,fetchMessages])
+    },[session])
 
   // Handle switch change
   const handleSwitchChange = async () => {
