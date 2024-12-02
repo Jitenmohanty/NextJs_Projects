@@ -34,6 +34,14 @@ const UserDashboard = () => {
   const handleDeleteMessage = (messageId:string)=>{
       setMessages(messages.filter((message)=> message._id !== messageId));
   }
+  const handleMessageUpdate = (updatedMessage: Message) => {
+    setMessages((prevMessages) =>
+      prevMessages.map((message) =>
+        message._id === updatedMessage._id ? updatedMessage : message
+      )
+    );
+  };
+  
 
   const acceptMessages = watch('acceptMessages');
 
@@ -187,6 +195,7 @@ const UserDashboard = () => {
               key={String(message._id)}
               message={message}
               onMessageDelete={handleDeleteMessage}
+              onMessageUpdate={handleMessageUpdate}
             />
           ))
         ) : (
