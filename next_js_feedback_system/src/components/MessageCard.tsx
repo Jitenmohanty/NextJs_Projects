@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import axios, { AxiosError } from 'axios';
-import dayjs from 'dayjs';
-import { Edit, X, Save } from 'lucide-react';
-import { Message } from '@/model/user.model';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import axios, { AxiosError } from "axios";
+import dayjs from "dayjs";
+import { Edit, X, Save } from "lucide-react";
+import { Message } from "@/model/user.model";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,11 +15,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from './ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { ApiResponse } from '@/types/ApiResponse';
-import { useState } from 'react';
+} from "@/components/ui/alert-dialog";
+import { Button } from "./ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { ApiResponse } from "@/types/ApiResponse";
+import { useState } from "react";
+import { any } from "zod";
 
 type MessageCardProps = {
   message: Message;
@@ -27,14 +28,20 @@ type MessageCardProps = {
   onMessageUpdate: (updatedMessage: Message) => void;
 };
 
-const MessageCard = ({ message, onMessageDelete, onMessageUpdate }: MessageCardProps) => {
+const MessageCard = ({
+  message,
+  onMessageDelete,
+  onMessageUpdate,
+}: MessageCardProps) => {
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(message.content);
-console.log(message)
+  // console.log(message);
   const handleDeleteConfirmation = async () => {
     try {
-      const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
+      const response = await axios.delete<ApiResponse>(
+        `/api/delete-message/${message._id}`
+      );
 
       toast({
         title: response.data.message,
@@ -43,37 +50,44 @@ console.log(message)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
-        title: 'Error',
-        description: axiosError.response?.data.message ?? 'Failed to delete message',
-        variant: 'destructive',
+        title: "Error",
+        description:
+          axiosError.response?.data.message ?? "Failed to delete message",
+        variant: "destructive",
       });
     }
   };
 
   const handleSaveEdit = async () => {
     try {
-      const response = await axios.put<ApiResponse>(`/api/update-message/${message._id}`, {
-        content: editedContent,
-      });
-  
+      const response = await axios.put<ApiResponse>(
+        `/api/update-message/${message._id}`,
+        {
+          content: editedContent,
+        }
+      );
+      console.log(response.data)
+
       toast({
         title: response.data.message,
       });
-  
+
       // Notify parent component of the update
-      onMessageUpdate({...message, content:editedContent});
-      
+      const updatedMessage = { ...message, content: editedContent };
+      console.log(updatedMessage)
+      onMessageUpdate(updatedMessage);
       setIsEditing(false);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
-        title: 'Error',
-        description: axiosError.response?.data.message ?? 'Failed to update message',
-        variant: 'destructive',
+        title: "Error",
+        description:
+          axiosError.response?.data.message ?? "Failed to update message",
+        variant: "destructive",
       });
     }
   };
-  
+
   return (
     <Card className="card-bordered">
       <CardHeader>
@@ -108,18 +122,23 @@ console.log(message)
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete this message.
+                    This action cannot be undone. This will permanently delete
+                    this message.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDeleteConfirmation}>Continue</AlertDialogAction>
+                  <AlertDialogAction onClick={handleDeleteConfirmation}>
+                    Continue
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
           </div>
         </div>
-        <div className="text-sm">{dayjs(message.createdAt).format('MMM D, YYYY h:mm A')}</div>
+        <div className="text-sm">
+          {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
+        </div>
       </CardHeader>
       <CardContent></CardContent>
     </Card>
