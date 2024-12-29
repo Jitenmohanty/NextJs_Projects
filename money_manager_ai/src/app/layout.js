@@ -1,7 +1,9 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import Header from "@/components/header";
 
-const inter = Inter({subsets: ['latin']});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -10,19 +12,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={` ${inter.className} antialiased`}
-      >
-        {/* header */}
-        {children}
-        {/* footer */}
-        <footer className="flex justify-center items-center h-16 bg-gray-800 text-white py-12">
+    <ClerkProvider>
+      <html lang="en">
+        <body className={` ${inter.className} antialiased`}>
+          {/* header */}
+          <Header/>
+          <main className="min-h-screen">
+          {children}
+          </main>
+          {/* footer */}
+          <footer className="flex justify-center items-center h-16 bg-gray-800 text-white py-12">
             <div className="container mx-auto px-4 text-center text-green-400">
               <p>© 2021 Jitu Developement Era</p>
             </div>
-        </footer>
-      </body>
-    </html>
+          </footer>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
