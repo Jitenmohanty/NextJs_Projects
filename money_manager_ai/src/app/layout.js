@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           </main>
           {/* footer */}
           <footer className="flex justify-center items-center h-16 bg-gray-800 text-white py-12">
-            <div className="container mx-auto px-4 text-center text-green-400">
+            <div className="container mx-auto px-4 text-center text-blue-400">
               <p>© 2021 Jitu Developement Era</p>
             </div>
           </footer>
