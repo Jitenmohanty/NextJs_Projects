@@ -20,7 +20,6 @@ import { Button } from "./ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { ApiResponse } from "@/types/ApiResponse";
 import { useState } from "react";
-import { any } from "zod";
 
 type MessageCardProps = {
   message: Message;
@@ -36,7 +35,7 @@ const MessageCard = ({
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(message.content);
-  // console.log(message);
+
   const handleDeleteConfirmation = async () => {
     try {
       const response = await axios.delete<ApiResponse>(
@@ -60,22 +59,21 @@ const MessageCard = ({
 
   const handleSaveEdit = async () => {
     try {
-      const response = await axios.put<ApiResponse>(
+      const response = await axios.put<ApiResponse & { data: Message }>(
         `/api/update-message/${message._id}`,
         {
           content: editedContent,
         }
       );
-      console.log(response.data)
 
       toast({
         title: response.data.message,
       });
 
-      // Notify parent component of the update
-      const updatedMessage = { ...message, content: editedContent };
-      console.log(updatedMessage)
-      onMessageUpdate(updatedMessage);
+      // Use the returned message from the API response
+      if (response.data.data) {
+        onMessageUpdate(response.data.data);
+      }
       setIsEditing(false);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
