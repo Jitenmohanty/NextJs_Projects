@@ -1,7 +1,8 @@
 import dbConnect from "@/lib/DbConnect";
-import UserModel from "@/model/user.model";
+import UserModel, { MessageDocument } from "@/model/user.model";
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
+import { Types } from "mongoose";
 
 export async function PUT(
   request: Request,
@@ -37,25 +38,52 @@ export async function PUT(
       );
     }
 
-    // Find and update the message
-    const updateResult = await UserModel.findOneAndUpdate(
-      { _id: _user._id, "messages._id": messageId }, // Match the user and specific message
-      { $set: { "messages.$.content": content } }, // Update the message's content
-      { new: true } // Return the updated document
-    );
+    // Find the user and get the specific message
+    const user = await UserModel.findOne({ 
+      _id: _user._id,
+      "messages._id": messageId 
+    });
 
-    if (!updateResult) {
+    if (!user) {
       return new Response(
         JSON.stringify({
           success: false,
-          message: "Message not found or update failed",
+          message: "Message not found",
         }),
         { status: 404 }
       );
     }
 
+    // Find the specific message in the messages array
+    const message = user.messages.find(
+      (msg: MessageDocument) => msg._id.toString() === messageId
+    );
+    
+    if (!message) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Message not found",
+        }),
+        { status: 404 }
+      );
+    }
+
+    // Update the message content
+    message.content = content;
+    await user.save();
+
+    // Return only the updated message
     return new Response(
-      JSON.stringify({ success: true, message: "Message updated successfully" }),
+      JSON.stringify({ 
+        success: true, 
+        message: "Message updated successfully",
+        data: {
+          _id: message._id,
+          content: message.content,
+          createdAt: message.createdAt
+        }
+      }),
       { status: 200 }
     );
   } catch (error) {
