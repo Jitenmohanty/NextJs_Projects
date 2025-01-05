@@ -1,8 +1,8 @@
 import dbConnect from "@/lib/DbConnect";
-import UserModel from "@/model/user.model";
 import { usernameValidation } from "@/Schemas/signUpSchema";
 import { z } from "zod";
 import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
+import UserModel from "@/model/user.model";
 
 
 const UsernameQuerySchema = z.object({

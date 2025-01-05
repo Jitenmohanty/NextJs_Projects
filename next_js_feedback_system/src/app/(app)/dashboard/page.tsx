@@ -2,7 +2,6 @@
 
 import { useState,useEffect, useCallback } from "react"
 import { useToast } from "@/components/ui/use-toast";
-import { Message } from "@/model/user.model"
 import { AcceptMessageSchema } from "@/Schemas/acceptMessageSchema";
 import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,11 +14,12 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
+import { MessageDocument } from "@/model/user.model";
 
 
 const UserDashboard = () => {
 
-  const [messages,setMessages] = useState<Message[]>([]);
+  const [messages,setMessages] = useState<MessageDocument[]>([]);
   const [isLoading,setIsLoading] = useState<boolean>(false);
   const [isSwitchLoading,setIsSwitchLoading] = useState<boolean>(false);
 
@@ -32,9 +32,9 @@ const UserDashboard = () => {
   const {register,watch,setValue} = form;
 
   const handleDeleteMessage = (messageId:string)=>{
-      setMessages(messages.filter((message)=> message._id !== messageId));
+      setMessages(messages.filter((message) => message._id.toString() !== messageId));
   }
-  const handleMessageUpdate = (updatedMessage: Message) => {
+  const handleMessageUpdate = (updatedMessage: MessageDocument) => {
     setMessages((prevMessages) =>
       prevMessages.map((message) =>
         message._id === updatedMessage._id ? updatedMessage : message
@@ -146,7 +146,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+    <div className="my-8  md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
 
       <div className="mb-4">
@@ -156,7 +156,7 @@ const UserDashboard = () => {
             type="text"
             value={profileUrl}
             disabled
-            className="input input-bordered w-full p-2 mr-2"
+            className="input bg-gray-300 rounded-lg input-bordered w-full lg:w-1/3 md:w-1/3 p-2 mr-2"
           />
           <Button onClick={copyToClipboard}>Copy</Button>
         </div>

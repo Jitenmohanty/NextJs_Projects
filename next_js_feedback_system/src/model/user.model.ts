@@ -5,6 +5,7 @@ export interface IMessage {
   _id: Types.ObjectId;
   content: string;
   createdAt: Date;
+  updatedAt?: Date;
 }
 
 export interface MessageDocument extends Document, IMessage {
@@ -21,8 +22,12 @@ const MessageSchema = new Schema<IMessage>({
     type: Date,
     required: true,
     default: Date.now
-  }
-});
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  } 
+},{timestamps: true});
 
 // User interfaces
 export interface IUser {

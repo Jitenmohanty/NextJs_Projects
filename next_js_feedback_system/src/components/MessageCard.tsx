@@ -20,6 +20,7 @@ import { Button } from "./ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { ApiResponse } from "@/types/ApiResponse";
 import { MessageDocument } from "@/model/user.model";
+import { Skeleton } from "./ui/skeleton";
 
 type MessageCardProps = {
   message: MessageDocument;
@@ -35,6 +36,8 @@ const MessageCard = ({
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(message.content);
+  const [loading, setLoading] = useState(false);
+
 
   const handleDeleteConfirmation = async () => {
     try {
@@ -58,6 +61,7 @@ const MessageCard = ({
   };
 
   const handleSaveEdit = async () => {
+    setLoading(true);
     if (!editedContent.trim()) {
       toast({
         title: "Error",
@@ -78,11 +82,10 @@ const MessageCard = ({
       toast({
         title: response.data.message,
       });
-      
+
       if (response.data.data) {
         onMessageUpdate(response.data.data);
       }
-      setIsEditing(false);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -91,6 +94,8 @@ const MessageCard = ({
           axiosError.response?.data.message ?? "Failed to update message",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,15 +113,18 @@ const MessageCard = ({
                 autoFocus
               />
               <div className="flex justify-end gap-2 mt-2">
-                <Button 
+                <Button
                   onClick={() => setIsEditing(false)}
                   variant="outline"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Cancel
                 </Button>
-                <Button 
-                  onClick={handleSaveEdit}
+                <Button
+                  onClick={()=>{
+                    handleSaveEdit()
+                    setIsEditing(false)
+                  }}
                   className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
                 >
                   <Save size={16} />
@@ -126,49 +134,59 @@ const MessageCard = ({
             </div>
           ) : (
             <>
-              <CardTitle className="text-lg font-medium text-gray-900 flex-1">
-                {message.content}
-              </CardTitle>
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => setIsEditing(true)}
-                  variant="outline"
-                  className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                >
-                  <Edit size={18} />
-                </Button>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button 
+              {loading ? (
+                <div className="flex-1 space-y-2">
+                    <Skeleton className="w-[80%] h-[20px] rounded-full" />
+                    <Skeleton className="w-[30%] h-[20px] rounded-full" />
+                </div>
+              ) : (
+                <>
+                  <CardTitle className="text-lg font-medium text-gray-900 flex-1">
+                    {message.content}
+                  </CardTitle>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => setIsEditing(true)}
                       variant="outline"
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
                     >
-                      <X size={18} />
+                      <Edit size={18} />
                     </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="bg-white p-6 rounded-lg shadow-xl">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle className="text-xl font-semibold text-gray-900">
-                        Delete Message
-                      </AlertDialogTitle>
-                      <AlertDialogDescription className="text-gray-600">
-                        Are you sure you want to delete this message? This action cannot be undone.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter className="mt-6">
-                      <AlertDialogCancel className="mr-2">
-                        Cancel
-                      </AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={handleDeleteConfirmation}
-                        className="bg-red-600 hover:bg-red-700 text-white"
-                      >
-                        Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <X size={18} />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="bg-white p-6 rounded-lg shadow-xl">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle className="text-xl font-semibold text-gray-900">
+                            Delete Message
+                          </AlertDialogTitle>
+                          <AlertDialogDescription className="text-gray-600">
+                            Are you sure you want to delete this message? This
+                            action cannot be undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter className="mt-6">
+                          <AlertDialogCancel className="mr-2">
+                            Cancel
+                          </AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={handleDeleteConfirmation}
+                            className="bg-red-600 hover:bg-red-700 text-white"
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
