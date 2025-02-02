@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, ArrowDownRight, CreditCard } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, CreditCard, Loader2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { useEffect } from "react";
@@ -32,7 +32,7 @@ export function AccountCard({ account }) {
     if (isDefault) {
       toast.warning("You need atleast 1 default account");
       return; // Don't allow toggling off the default account
-    }
+    } 
 
     await updateDefaultFn(id);
   };
@@ -56,11 +56,12 @@ export function AccountCard({ account }) {
           <CardTitle className="text-sm font-medium capitalize">
             {name}
           </CardTitle>
-          <Switch
+          {updateDefaultLoading? <Loader2 className="animate-spin h-4 w-4"/>: <Switch
             checked={isDefault}
             onClick={handleDefaultChange}
             disabled={updateDefaultLoading}
-          />
+          />}
+         
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">
