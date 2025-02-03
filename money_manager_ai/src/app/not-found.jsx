@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 export default function Custom404() {
+  
   return (
     <div className="flex mt-8 flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-green-400 text-white">
       <h1 className="text-8xl font-extrabold mb-6 text-b">404</h1>

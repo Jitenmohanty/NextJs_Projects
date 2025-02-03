@@ -6,7 +6,9 @@ import { TransactionTable } from "@/components/transaction-table";
 import { AccountChart } from "@/components/account-chart";
 
 export default async function AccountPage({ params }) {
-  const accountData = await getAccountWithTransactions(params.id);
+  
+
+  const accountData = await getAccountWithTransactions(params?.id);
 
   if (!accountData) {
     notFound();
