@@ -2,27 +2,32 @@ import { useState } from 'react'
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Edit, Trash } from "lucide-react"
+import { Edit, Trash, Tag, Repeat } from "lucide-react"
 import { formatDistanceToNow } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-interface TodoItemProps {
+type TodoItemProps = {
   todo: {
     id: number
     text: string
     deadline?: Date
     isEditing: boolean
     priority: 'low' | 'medium' | 'high'
+    tags: string[]
+    recurrence?: 'daily' | 'weekly' | 'monthly'
   }
   onEdit: (id: number, newText: string) => void
   onDelete: (id: number) => void
   onSetDeadline: (id: number, deadline: string) => void
   onSetPriority: (id: number, priority: 'low' | 'medium' | 'high') => void
+  onSetTags: (id: number, tags: string[]) => void
+  onSetRecurrence: (id: number, recurrence: 'daily' | 'weekly' | 'monthly' | undefined) => void
 }
 
-export function TodoItem({ todo, onEdit, onDelete, onSetDeadline, onSetPriority }: TodoItemProps) {
+export function TodoItem({ todo, onEdit, onDelete, onSetDeadline, onSetPriority, onSetTags, onSetRecurrence }: TodoItemProps) {
   const [isEditing, setIsEditing] = useState(todo.isEditing)
+  const [newTag, setNewTag] = useState('')
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     onEdit(todo.id, e.target.value)
@@ -34,6 +39,17 @@ export function TodoItem({ todo, onEdit, onDelete, onSetDeadline, onSetPriority 
       onEdit(todo.id, (e.target as HTMLInputElement).value)
       setIsEditing(false)
     }
+  }
+
+  const addTag = () => {
+    if (newTag.trim() && !todo.tags.includes(newTag.trim())) {
+      onSetTags(todo.id, [...todo.tags, newTag.trim()])
+      setNewTag('')
+    }
+  }
+
+  const removeTag = (tag: string) => {
+    onSetTags(todo.id, todo.tags.filter(t => t !== tag))
   }
 
   return (
@@ -91,6 +107,40 @@ export function TodoItem({ todo, onEdit, onDelete, onSetDeadline, onSetPriority 
                 <SelectItem value="high">High</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Label>Recurrence</Label>
+            <Select value={todo.recurrence} onValueChange={(value) => onSetRecurrence(todo.id, value as 'daily' | 'weekly' | 'monthly' | undefined)}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="None" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="daily">Daily</SelectItem>
+                <SelectItem value="weekly">Weekly</SelectItem>
+                <SelectItem value="monthly">Monthly</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Label>Tags</Label>
+            <div className="flex flex-wrap gap-2">
+              {todo.tags.map((tag) => (
+                <div key={tag} className="flex items-center bg-gray-100 px-2 py-1 rounded">
+                  <span className="text-sm">{tag}</span>
+                  <button onClick={() => removeTag(tag)} className="ml-1 text-red-500">
+                    &times;
+                  </button>
+                </div>
+              ))}
+              <Input
+                type="text"
+                placeholder="Add tag"
+                value={newTag}
+                onChange={(e) => setNewTag(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && addTag()}
+                className="w-24"
+              />
+            </div>
           </div>
         </div>
       )}

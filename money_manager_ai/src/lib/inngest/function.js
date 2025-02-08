@@ -1,6 +1,7 @@
 import { inngest } from "./client";
 import { db } from "@/lib/prisma";
 import EmailTemplate from "@/emails/template";
+import { sendEmail } from "@/api/send-email";
 
 // 1. Recurring Transaction Processing with Throttling
 export const processRecurringTransaction = inngest.createFunction(
