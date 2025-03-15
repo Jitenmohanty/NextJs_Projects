@@ -22,7 +22,7 @@ const CursorChart = ({
         if(e.key === "Enter"){
             setCursorState({
                 mode:CursorMode.Chat,
-                previousMessage:cursorState?.message,
+                previousMessage: cursorState && cursorState.mode === CursorMode.Chat ? cursorState.message : '',
                 message:''
             }) 
         }else if(e.key === "Escape"){
@@ -30,7 +30,6 @@ const CursorChart = ({
                 mode:CursorMode.Hidden
             })
         }
-
     }
 
   return (
