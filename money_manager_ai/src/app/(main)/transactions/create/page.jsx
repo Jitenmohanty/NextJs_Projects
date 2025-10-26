@@ -1,11 +1,13 @@
 import { AddTransactionForm } from "@/components/transaction-form";
-import { getUserAccount } from "@/api/dashboard";
+import { getUserAccounts } from "@/api/dashboard";
 import { getTransaction } from "@/api/transaction";
 import { defaultCategories } from "@/data/catagories";
 
 export default async function AddTransactionPage({ searchParams }) {
-  const accounts = await getUserAccount();
-  const editId = searchParams?.edit;
+  const resolvedSearchParams = await searchParams; // ✅ Await first
+
+  const accounts = await getUserAccounts();
+  const editId = resolvedSearchParams?.edit;
 
   let initialData = null;
   if (editId) {

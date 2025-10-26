@@ -70,7 +70,7 @@ export async function createAccount(data) {
   }
 }
 
-export async function getUserAccount() {
+export async function getUserAccounts() {
 
       try {
         const { userId } = await auth();
@@ -102,4 +102,25 @@ export async function getUserAccount() {
         console.error(error.message);
       }
 
+}
+
+export async function getDashboardData() {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await db.user.findUnique({
+    where: { clerkUserId: userId },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Get all user transactions
+  const transactions = await db.transaction.findMany({
+    where: { userId: user.id },
+    orderBy: { date: "desc" },
+  });
+
+  return transactions.map(serializeTransaction);
 }
