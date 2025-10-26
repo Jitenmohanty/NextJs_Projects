@@ -18,6 +18,7 @@ No passwords, no hassle — just a single tap to log in.
 Once verified, you’re instantly redirected to your personalized dashboard.`,
   },
   {
+    icon: <Gauge className="inline w-6 h-6 mr-2 text-blue-600" />,
     title: " Smart Dashboard Overview",
     description: `
 Your **AI-powered dashboard** gives a complete overview of all your finances at a glance.  
@@ -26,6 +27,7 @@ Set your **monthly expense limit**, and when spending reaches 90%, our system au
 You’ll also see interactive charts for **recent transactions**, **monthly expense breakdowns**, and quick financial insights.`,
   },
   {
+    icon: <PlusCircle className="inline w-6 h-6 mr-2 text-blue-600" />,
     title: " Add Transactions — Powered by AI",
     description: `
 Click on the **“Add Transaction”** button in the top-right corner to record any income or expense.  
@@ -34,6 +36,7 @@ Select which account was used, and your balance updates in real-time.
 This feature turns boring bookkeeping into an effortless, intelligent process.`,
   },
   {
+    icon: <BarChart3 className="inline w-6 h-6 mr-2 text-blue-600" />,
     title: " Deep Transaction Insights",
     description: `
 Click on any **Account** from the dashboard to open its detailed insights view.  
@@ -42,6 +45,7 @@ Quickly search or filter by bank, account, or transaction type.
 Gain a clear financial perspective in seconds — no spreadsheets, no manual effort.`,
   },
   {
+    icon: <Bell className="inline w-6 h-6 mr-2 text-blue-600" />,
     title: " Automation & AI Alerts",
     description: `
 Behind the scenes, the platform runs **AI-driven automation**.  

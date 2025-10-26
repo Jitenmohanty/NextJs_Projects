@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
+  metadataBase: new URL("https://next-js-projects-4kry.vercel.app"),
   title: "AI Money Manager – Smart Personal Finance App",
   description:
     "Manage multiple accounts, track transactions, and get automatic email alerts when your spending exceeds limits or budget reaches 90%. AI-powered money management made simple.",
@@ -44,6 +45,7 @@ export const metadata = {
   },
   manifest: "/site.webmanifest",
 };
+
 
 export default function RootLayout({ children }) {
   return (
